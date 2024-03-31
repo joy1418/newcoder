@@ -9,7 +9,7 @@ public class Qes1{
         while (in.hasNextLine()) {
             String str =in.nextLine();
             String[] arr =str.split(" ");
-            System.out.println(arr[arr.length-1]);
+            System.out.println(arr[arr.length-1].length());
         }
     }
 }

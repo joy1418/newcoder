@@ -39,6 +39,7 @@ public class Qes48 {
                 }
                 num =cal(str,i+1,j-1);
                 i=j-1;
+
             }
             if(!Character.isDigit(cc)||i==end){
                 switch (opt){

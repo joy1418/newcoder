@@ -1,5 +1,7 @@
 package com.example;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -7,54 +9,35 @@ public class Qes48 {
 
     public static void main(String[] args){
         Scanner in = new Scanner(System.in);
-        String str = in.nextLine();  //算术表达式
-        System.out.println(cal(str,0,str.length()-1));
+        while (in.hasNextLine()){
+            String str = in.nextLine();
+            String[] arr = str.split(" ");
+            int num = Integer.parseInt(arr[0]);  //节点个数
+            int headNum = Integer.parseInt(arr[1]);  //头节点的值
+            int val = Integer.parseInt(arr[arr.length-1]); //要删除节点的值
+            ListNode head = new ListNode(headNum,null);
+            List<Integer> list = new ArrayList<>();
+            list.add(headNum);
+            for(int i=1;i<=num-1;i++){
+                int num1 = Integer.parseInt(arr[2*i]);
+                int num2 = Integer.parseInt(arr[2*i+1]);
+                list.add(list.indexOf(num2)+1,num1);  //通过list列表操作
+
+            }
+            list.remove(list.indexOf(val));
+            for(int i:list){
+                System.out.print(i+" ");
+            }
+        }
     }
+}
 
-    public static int cal(String str,int start,int end){
-        Stack<Integer> stack = new Stack<>();
-        char[] arr = str.toCharArray();
-        int sum = 0;
-        int num = 0;
-        char opt = '+'; //
-        for(int i=start;i<=end;i++){
-            char cc = arr[i];
-            if(Character.isDigit(cc)){
-                num = num*10+cc-'0';
-            }
-            if(cc=='{'||cc=='['||cc=='('){
-                int j = i;
-                int count= 0;
-                while (j<=end){
-                    if(arr[j]=='{'||arr[j]=='['||arr[j]=='('){
-                        count++;
-                    }
-                    if(arr[j]=='}'||arr[j]==']'||arr[j]==')'){
-                        count--;
-                    }
-                    if(count==0){
-                        break;
-                    }
-                    j++;
-                }
-                num =cal(str,i+1,j-1);
-                i=j-1;
-
-            }
-            if(!Character.isDigit(cc)||i==end){
-                switch (opt){
-                    case '+':stack.push(num);break;
-                    case '-':stack.push(-1*num);break;
-                    case '*':stack.push(stack.pop()*num);break;
-                    case '/':stack.push(stack.pop()/num);break;
-                }
-                opt=cc;
-                num=0;
-            }
-        }
-        while (!stack.isEmpty()){
-            sum += stack.pop();
-        }
-        return sum;
+class ListNode{
+    int val;
+    ListNode next;
+    public ListNode(){}
+    public ListNode(int val,ListNode next){
+        this.val =val;
+        this.next = next;
     }
 }

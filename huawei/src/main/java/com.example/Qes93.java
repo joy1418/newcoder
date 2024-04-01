@@ -45,6 +45,7 @@ public class Qes93 {
     }
     public static boolean dfs(List<Integer> list, int target, int start) {
         if (start == list.size()) return target == 0;
+
         return dfs(list, target - list.get(start), start + 1) ||
                 dfs(list, target, start + 1);
     }
